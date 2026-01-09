@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foods</title>
+</head>
+<body>
+    <h1>Foods</h1>
+    <ul>
+        <% foods.forEach(food => { %>
+            <li><%= food.name %> - <%= food.price %> - <%= food.menu %></li>
+        <% }); %>
+    </ul>
+
+    <form action="/views/foods" method="post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="number" name="price" placeholder="Price">
+        <input type="text" name="menu" placeholder="Menu">
+        <button type="submit">Create Food</button>
+    </form>
+</body>
+</html>
