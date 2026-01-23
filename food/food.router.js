@@ -1,10 +1,14 @@
 const { Router } = require('express');
 const FoodController = require('./food.controller');
 const FoodMiddleware = require('./food.middleware');
+const AuthMiddleware = require('../auth/auth.middleware');
 const router = Router();
 
+// validate token
+router.use(AuthMiddleware.ValidateToken);
+
 // GET all foods
-router.get('/',FoodController.GetAllFoods);
+router.get('/', FoodController.GetAllFoods);
 
 // GET a single food
 router.get('/:id', FoodController.GetFoodById);

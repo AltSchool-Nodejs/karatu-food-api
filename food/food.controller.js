@@ -1,9 +1,9 @@
 const FoodService = require('./food.service');
 
-const GetAllFoods = (req, res) => {
+const GetAllFoods = async (req, res) => {
     const queryParams = req.query;
 
-    const foods = FoodService.GetAllFoods({ 
+    const foods = await FoodService.GetAllFoods({ 
         ids: queryParams.ids,
         menu: queryParams.menu 
     });
@@ -11,18 +11,19 @@ const GetAllFoods = (req, res) => {
     return res.status(200).json(foods);
 }
 
-const GetFoodById = (req, res) => {
+const GetFoodById = async (req, res) => {
     
-    const food = FoodService.GetFoodById(req.params.id);
+    const food = await FoodService.GetFoodById(req.params.id);
 
     return res.status(food.status).json(food);
 }
 
-const CreateFood = (req, res) => {
+const CreateFood = async (req, res) => {
     const body = req.body;
     // generate a new id, random number greater than 10
-    const newFood = FoodService.CreateFood(body);
+    const newFood = await FoodService.CreateFood(body);
 
+    console.log(newFood);
     return res.status(newFood.status).json(newFood);
 }
 
