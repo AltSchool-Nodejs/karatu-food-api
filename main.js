@@ -3,7 +3,9 @@ const database = require('./config/database');
 
 database.connectDB();
 
-app.listen(3005, () => {
-    console.log('Server is running on port 3005');
-    console.log('http://localhost:3005');
+const port = process.env.PORT || 3005;
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    console.log(`http://localhost:${port}`);
 });

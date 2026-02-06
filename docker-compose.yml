@@ -1,0 +1,37 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3005:3005"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/karatu-food-api
+      JWT_SECRET: ${JWT_SECRET:-supersecretstuff}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - karatu
+ 
+  mongodb:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - karatu
+
+networks:
+  karatu:
+    driver: bridge
+
+volumes:
+  mongodb_data:
